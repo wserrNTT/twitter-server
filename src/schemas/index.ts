@@ -16,7 +16,7 @@ export const userSchema = model(
 export const tweetSchema = model(
   'Tweet',
   new Schema({
-    authorID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     timeStamp: { type: String, required: true },
     body: { type: String, required: true },
     picture: { type: String },
