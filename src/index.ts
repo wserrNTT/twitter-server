@@ -10,7 +10,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { userRouter } from './routes/user.routes';
-import { trendRouter } from './routes/trend.routes';
+import { hashtagRouter } from './routes/hashtag.routes';
 import { tweetRouter } from './routes/tweet.routes';
 import { loginRouter } from './routes/login.routes';
 
@@ -36,9 +36,10 @@ app.use(
 
 // Routes
 app.use('/', loginRouter);
+
 app.use('/api', userRouter);
 app.use('/api', tweetRouter);
-app.use('/api', trendRouter);
+app.use('/api', hashtagRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

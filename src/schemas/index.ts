@@ -25,10 +25,10 @@ export const tweetSchema = model(
   })
 );
 
-export const trendSchema = model(
-  'trend',
+export const hashtagSchema = model(
+  'Hashtag',
   new Schema({
     name: { type: String, required: true },
-    tweet_volume: { type: Number, default: 0 }
+    tweet_volume: [{ type: Schema.Types.ObjectId, ref: 'Tweet' }]
   })
 );

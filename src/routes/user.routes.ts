@@ -6,13 +6,25 @@ import { userSchema as User } from '../schemas';
 
 const userRouter = Router();
 
-// GET all users
+// GET all users or GET user by username if given
 userRouter.get('/users', async (req, res) => {
-  try {
-    const users = await User.find({}, '-password');
-    res.json(users);
-  } catch (error) {
-    res.status(500).send((error as Error).message);
+  const { username } = req.query;
+  if (username) {
+    try {
+      const response = await User.find({ userName: username });
+      if (response.length !== 1) throw new Error('User not found');
+
+      res.status(200).json(response[0]);
+    } catch (error) {
+      res.status(404).send((error as Error).message);
+    }
+  } else {
+    try {
+      const users = await User.find({}, '-password');
+      res.json(users);
+    } catch (error) {
+      res.status(500).send((error as Error).message);
+    }
   }
 });
 
