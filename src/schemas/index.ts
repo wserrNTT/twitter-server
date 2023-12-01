@@ -4,6 +4,7 @@ export const userSchema = model(
   'User',
   new Schema({
     userName: { type: String, required: true },
+    password: { type: String },
     displayName: { type: String, required: true },
     description: { type: String, required: true },
     profilePicture: { type: String, required: true },

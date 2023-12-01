@@ -12,6 +12,7 @@ dotenv.config();
 import { userRouter } from './routes/user.routes';
 import { trendRouter } from './routes/trend.routes';
 import { tweetRouter } from './routes/tweet.routes';
+import { loginRouter } from './routes/login.routes';
 
 // DB connection
 mongoose
@@ -34,6 +35,7 @@ app.use(
 );
 
 // Routes
+app.use('/', loginRouter);
 app.use('/api', userRouter);
 app.use('/api', tweetRouter);
 app.use('/api', trendRouter);
