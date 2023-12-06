@@ -22,7 +22,7 @@ export const tweetSchema = model(
     picture: { type: String },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Tweet' }],
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    resposts: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    reposts: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     views: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   })
 );
