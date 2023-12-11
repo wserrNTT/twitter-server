@@ -2,7 +2,6 @@ import { Router } from 'express';
 
 // Schema
 import { tweetSchema as Tweet } from '../schemas';
-import { userSchema as User } from '../schemas';
 import { hashtagSchema as Hashtag } from '../schemas';
 
 import { extractHashtags } from '../utils';
@@ -11,8 +10,15 @@ const tweetRouter = Router();
 
 // GET all tweets
 tweetRouter.get('/tweets', async (req, res) => {
+  const users = (req.query.users as string) || '';
+
   try {
-    const tweets = await Tweet.find().sort({ _id: -1 }).populate('author');
+    const tweets =
+      users.length === 0
+        ? await Tweet.find().sort({ _id: -1 }).populate('author')
+        : await Tweet.find({ author: users.split(' ') })
+            .sort({ _id: -1 })
+            .populate('author');
     res.json(tweets);
   } catch (error) {
     res.status(500).send((error as Error).message);
@@ -25,17 +31,6 @@ tweetRouter.get('/tweets/:id', async (req, res) => {
   try {
     const tweet = await Tweet.findById(id);
     res.json(tweet);
-  } catch (error) {
-    res.status(500).send((error as Error).message);
-  }
-});
-
-// GET tweets by user ID
-tweetRouter.get('/users/:id/tweets/', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const tweets = await Tweet.find({ author: id });
-    res.json(tweets);
   } catch (error) {
     res.status(500).send((error as Error).message);
   }

@@ -12,7 +12,7 @@ dotenv.config();
 import { userRouter } from './routes/user.routes';
 import { hashtagRouter } from './routes/hashtag.routes';
 import { tweetRouter } from './routes/tweet.routes';
-import { loginRouter } from './routes/login.routes';
+import { actionRouter } from './routes/action.routes';
 
 // DB connection
 mongoose
@@ -29,13 +29,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: '*'
-    // origin: 'http://localhost:5173/'
+    // origin: '*'
+    origin: 'http://localhost:5173'
   })
 );
 
 // Routes
-app.use('/', loginRouter);
+app.use('/', actionRouter);
 
 app.use('/api', userRouter);
 app.use('/api', tweetRouter);
