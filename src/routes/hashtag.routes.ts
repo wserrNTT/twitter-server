@@ -15,11 +15,11 @@ hashtagRouter.get('/hashtags', async (req, res) => {
   }
 });
 
-// GET hashtag by ID
-hashtagRouter.get('/hashtags/:id', async (req, res) => {
-  const { id } = req.params;
+// GET hashtag by name
+hashtagRouter.get('/hashtags/:name', async (req, res) => {
+  const { name } = req.params;
   try {
-    const hashtag = await Hashtag.findById(id);
+    const hashtag = await Hashtag.findOne({ name });
     res.json(hashtag);
   } catch (error) {
     res.status(500).send((error as Error).message);
